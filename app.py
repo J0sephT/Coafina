@@ -8,9 +8,14 @@ import os
 import tempfile
 import time
 from pathlib import Path
-from ultralytics import YOLO
 import torch
+import warnings
 
+# 🔧 SOLUCIÓN: Configurar PyTorch para permitir cargar modelos de ultralytics
+torch.serialization.add_safe_globals(['ultralytics.nn.tasks.DetectionModel'])
+warnings.filterwarnings('ignore', category=SyntaxWarning)
+
+from ultralytics import YOLO
 from utils.detectors import PlayerDetector, FieldDetector
 from utils.processor import create_team_classifier, process_video
 
